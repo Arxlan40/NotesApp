@@ -47,7 +47,22 @@ const removeNotes = function (title) {
     return savenotes(duplicate);
   }
 };
+const listNotes = function () {
+  const notes = loadNotes();
 
+  return notes.forEach((task) => console.log(task.title));
+};
+
+const readNotes = function (title) {
+  const notes = loadNotes();
+  const note = notes.find((task) => task.title === title);
+
+  if (note) {
+    print(chalk.green.bold(note.title));
+  } else {
+    print(chalk.green.bold("Note not found"));
+  }
+};
 const savenotes = function (notes) {
   return fs.writeFileSync("Notes.json", JSON.stringify(notes));
 };
@@ -55,4 +70,6 @@ const savenotes = function (notes) {
 module.exports = {
   addNotes: addNotes,
   removeNotes: removeNotes,
+  listNotes: listNotes,
+  readNotes: readNotes,
 };
